@@ -1,0 +1,9 @@
+npx create-react-app area-chart
+npx create-react-app circle-packing
+npx create-react-app force-chart
+npx create-react-app line-chart
+npx create-react-app pie-chart
+npx create-react-app stack-chart
+npx create-react-app stream-chart
+npx create-react-app word-chart
+npx create-react-app miscellaneous
