@@ -1,7 +1,10 @@
 import React from 'react'
-import VersionOne from './component/versionOne/'
+// import VersionOne from './component/versionOne/'
+// import VersionTwo from './component/versionTwo'
+import VersionThree from './component/versionThree'
 function App() {
-	return <VersionOne />
+	return <VersionThree />
+	// return <VersionTwo />
 }
 
 export default App

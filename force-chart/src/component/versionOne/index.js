@@ -15,7 +15,7 @@ import {
 	forceSimulation,
 	dragFunc,
 } from './helpers'
-
+import Header from '../util/version'
 const VersionOne = props => {
 	let data = dataProvision()
 
@@ -63,7 +63,7 @@ const VersionOne = props => {
 
 	return (
 		<>
-			<header>Version 1</header>
+			<Header>Version 1</Header>
 			<svg width={width} height={height}>
 				<g transform={`translate(${margin.l},${margin.t})`}></g>
 			</svg>

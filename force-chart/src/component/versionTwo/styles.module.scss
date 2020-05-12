@@ -1,0 +1,11 @@
+.nodes {
+	display: block;
+	& > circle {
+		stroke: #3a403d;
+		stroke-width: 0.1rem;
+	}
+}
+.svg {
+	stroke-width: 1rem;
+	stroke: #fff;
+}

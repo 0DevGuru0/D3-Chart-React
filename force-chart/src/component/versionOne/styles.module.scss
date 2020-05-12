@@ -3,7 +3,6 @@
   "#377EB8"
   "#4DAF4A"
   "#984EA3" */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
 .links > line {
 	stroke: #999;
 	stroke-opacity: 0.6;
@@ -18,17 +17,4 @@
 		stroke-width: 3px;
 		stroke: #ccc;
 	}
-}
-header {
-	font-family: 'Raleway', sans-serif;
-	background-color: #fff;
-	padding: 1rem;
-	margin-top: 0.5rem;
-	border-radius: 5px;
-	text-align: center;
-	font-size: 3rem;
-	color: #377eb8;
-	writing-mode: vertical-rl;
-	text-orientation: mixed;
-	height: 40rem;
 }
