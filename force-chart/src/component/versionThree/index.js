@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import classes from './styles.module.scss'
 import Header from '../util/version'
@@ -9,18 +9,21 @@ import {
 	forceSimulation,
 	colorScale,
 	mouseNode,
-	x0,
-	dx,
-	baseRadius,
-	collisionStrength,
+	alterForce,
 } from './helpers'
+
 const VersionThree = () => {
+	const toggle = useRef(true)
 	useEffect(() => {
-		let rects = d3.select('svg g').selectAll('circle').data(pixels)
+		let rects = d3
+			.select('svg g')
+			.selectAll('circle')
+			.data(pixels)
 		let rectsEnter = rects
 			.enter()
 			.append('circle')
 			.attr('r', d => d.rTarget)
+
 		forceSimulation.on('tick', ticked)
 		function ticked(d) {
 			rectsEnter
@@ -28,52 +31,37 @@ const VersionThree = () => {
 				.attr('cy', d => d.y)
 				.attr('fill', d => colorScale(d.x))
 		}
-		let x0 = 0,
-			fps = 100,
-			dx = 150 / fps, //speed
-			baseRadius = 50
 
-		d3.timer(function () {
-			x0 += dx
-			if (x0 > width / 2) x0 = 0
-			var x = width * Math.sin((x0 / width) * Math.PI * 2)
-			mouseNode.xTarget = x
-			mouseNode.rTarget =
-				(baseRadius / 2) * Math.abs(Math.cos((x0 / width) * Math.PI * 6)) +
-				10 +
-				(baseRadius / 4) * Math.abs(Math.sin((x0 / width) * Math.PI * 7))
-			forceSimulation
-				.force(
-					'x',
-					d3
-						.forceX(function (d) {
-							return d.xTarget
-						})
-						.strength(collisionStrength)
-				)
-				.force(
-					'y',
-					d3
-						.forceY(function (d) {
-							return d.yTarget
-						})
-						.strength(collisionStrength)
-				)
-				.force(
-					'collide',
-					d3.forceCollide().radius(function (d) {
-						return d.rTarget
-					})
-				)
-				.alpha(1)
+		d3.select('svg').on('mousemove', function () {
+			var p = d3.mouse(this)
+			mouseNode.xTarget = p[0]
+			mouseNode.yTarget = p[1]
+			alterForce().restart()
 		})
 	}, [])
+	const clickHandler = () => {
+		console.log(toggle.current)
+		if (toggle.current) {
+			forceSimulation.force(
+				'charge',
+				d3.forceManyBody().strength(-80)
+			)
+			toggle.current = false
+		} else {
+			console.log('ok')
+			alterForce().alpha(1)
+			toggle.current = true
+		}
+	}
 	return (
 		<>
 			<Header>VersionThree</Header>
 			<svg width={width} height={height}>
 				<g className={classes.rect}></g>
 			</svg>
+			{/* <button className={classes.reset} onClick={clickHandler}>
+				Reset
+			</button> */}
 		</>
 	)
 }
