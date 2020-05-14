@@ -64,6 +64,8 @@ const VersionFour = () => {
 	const changeHandler = (event, target) => {
 		let xScaleConf = target === 'grant' ? g.xScale2 : g.xScale
 		let xAxisConf = target === 'grant' ? 'xAxis2' : 'xAxis'
+		let hide_xAxisConf =
+			target !== 'grant' ? 'xAxis2' : 'xAxis'
 		g.forceSimulation.force(
 			'x',
 			event.target.checked
@@ -80,6 +82,12 @@ const VersionFour = () => {
 			.style(
 				'display',
 				event.target.checked ? 'block' : 'none'
+			)
+		d3
+			.select(`.${classes[hide_xAxisConf]}`)
+			.style(
+				'display',
+				!event.target.checked ? 'block' : 'none'
 			)
 		d3
 			.select(`.${classes.circle}`)
