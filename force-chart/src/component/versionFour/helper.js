@@ -8,8 +8,8 @@ export let rScale = d3
 	.scalePow()
 	.exponent(0.5)
 	.range([2, 50])
-export let xScale = d3.scaleBand().range([70, width])
-export let xScale2 = d3.scaleBand().range([70, width])
+export let xScale = d3.scaleBand().range([0, width])
+export let xScale2 = d3.scaleBand().range([0, width])
 // let yScale = d3.scaleBand().range([50, height])
 
 export let colorScale = d3.scaleOrdinal(d3.schemeCategory10)

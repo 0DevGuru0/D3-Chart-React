@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import * as d3 from 'd3'
-
 import classes from './styles.module.scss'
 import Headers from '../util/version'
 import DataProvide from './data'
@@ -55,12 +54,44 @@ const VersionFour = () => {
 				.call(d3.axisTop(g.xScale2))
 		}
 	}, [data])
-	// useEffect(() => {
-	// 	if (data) {
-	// 		let { flatAgencies, nestedData } = data
-	// 		d3.select(`.${classes.labels}`).selectAll('rect').data('')
-	// 	}
-	// }, [data])
+
+	useEffect(() => {
+		if (data) {
+			let keys = []
+			let beas = []
+			let grants = []
+			data.flatAgencies.map(el => {
+				keys.push(el.key)
+				grants.push(el.grant)
+				beas.push(el.bea)
+			})
+			keys = [...new Set(keys)]
+			beas = [...new Set(beas)]
+			grants = [...new Set(grants)]
+			console.log(keys, beas, grants)
+			let labels = d3
+				.select(`.${classes.labels}`)
+				.attr(
+					'transform',
+					'translate(' + (g.width / 2 - 150) + ',0)'
+				)
+				.selectAll('g')
+				.data(beas)
+			let lbEnter = labels.enter().append('g')
+			let lbRect = lbEnter
+				.append('rect')
+				.attr('width', 10)
+				.attr('height', 10)
+				.attr('x', (d, i) => i * 120)
+				.attr('y', g.height - 20)
+				.attr('fill', d => g.colorScale(d))
+			lbEnter
+				.append('text')
+				.text(d => d)
+				.attr('x', (d, i) => i * 120 + 12)
+				.attr('y', g.height - 10)
+		}
+	}, [data])
 	const changeHandler = (event, target) => {
 		let xScaleConf = target === 'grant' ? g.xScale2 : g.xScale
 		let xAxisConf = target === 'grant' ? 'xAxis2' : 'xAxis'
