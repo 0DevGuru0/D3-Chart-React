@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.slices {
+	display: block;
+}
+.lines {
+	display: block;
+}
+.labels {
+	display: block;
+	font-family: 'Bebas Neue';
+	fill: #fff;
+	font-size: 1.2rem;
+}
+.chart {
+	display: block;
+}
+polyline {
+	opacity: 0.3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
