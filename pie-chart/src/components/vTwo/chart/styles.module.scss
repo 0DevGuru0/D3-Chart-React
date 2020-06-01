@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap');
+.chart {
+	display: block;
+}
+.slices {
+	display: block;
+}
+.label {
+	display: block;
+	fill: #262626;
+	font-family: 'Noto Sans TC';
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.segment {
+	display: block;
+	transition: all 1s;
+	&:hover {
+		opacity: 0.8;
+		cursor: pointer;
+		transform: scale(1.1);
+	}
+}
