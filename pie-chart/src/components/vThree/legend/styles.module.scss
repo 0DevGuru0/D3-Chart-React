@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+.legend {
+	display: block;
+	border-spacing: 20px 0.9rem;
+	&Freq {
+		display: block;
+	}
+	&Perc {
+		display: block;
+	}
+	&Type {
+		display: block;
+	}
+}
+.rows {
+	border: 1px dashed #ccc;
+	display: block;
+	td {
+		text-transform: capitalize;
+		font-family: 'Roboto';
+	}
+}

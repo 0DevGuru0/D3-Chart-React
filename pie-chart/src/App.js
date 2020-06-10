@@ -1,11 +1,13 @@
 import React from 'react'
 // import VersionOne from './components/vOne'
-import VersionTwo from './components/vTwo'
+// import VersionTwo from './components/vTwo'
+import VersionThree from './components/vThree'
 function App() {
 	return (
 		<>
 			{/* <VersionOne /> */}
-			<VersionTwo />
+			{/* <VersionTwo /> */}
+			<VersionThree />
 		</>
 	)
 }

@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+.chart {
+	display: block;
+}
+
+.barGrp {
+	display: block;
+	& > rect:hover {
+		opacity: 0.8;
+		cursor: pointer;
+	}
+}
+.barAxis {
+	display: block;
+	& > path,
+	& > line {
+		display: none;
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
+	text {
+		font-size: small;
+		font-family: 'Roboto';
+	}
+}
+.barText {
+	font-family: 'Roboto';
+	font-size: small;
+}

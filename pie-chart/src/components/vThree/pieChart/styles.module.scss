@@ -1,0 +1,7 @@
+.chart {
+	display: block;
+	& > path {
+		stroke: #fff;
+		stroke-width: 0.1rem;
+	}
+}
