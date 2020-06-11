@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import * as d3 from 'd3'
+
 import * as g from './helper'
 import classes from './styles.module.scss'
 import preData from '../data/data.json'
 import dataProvide from '../data'
-export default function Histogram(props) {
+
+const Histogram = ({ stateFreq, setTotalFreq }) => {
 	useEffect(() => {
-		if (props.data) {
-			console.log('histogram')
-			let { stateFreq } = props.data
+		if (stateFreq) {
 			g.x.domain(stateFreq.map(d => d[1]))
 			g.y.domain([0, d3.max(stateFreq, d => d[0])])
 
@@ -53,48 +53,41 @@ export default function Histogram(props) {
 				.attr('y', d => g.y(d[0]))
 				.text(d => d3.format('.2s')(d[0]))
 			bar.exit().remove()
-			function mouseover(d) {
-				let state = preData.filter(el => el.State === d[1])[0]
-				let totalFreq = d3
-					.keys(state.freq)
-					.map(v => ({ type: v, freq: state.freq[v] }))
-				delete props.data.totalFreq
-				props.setData({
-					totalFreq,
-					...props.data,
-				})
-			}
-			function mouseout(d) {
-				let data = dataProvide()
-				props.setData(data)
-			}
-		}
-		return () => {
-			if (props.data) {
-				let { stateFreq } = props.data
-				g.y.domain([0, d3.max(stateFreq, d => d[0])])
-				d3.selectAll('g .' + classes.barAxis).remove()
 
-				let bars = d3
-					.select('.' + classes.chart)
-					.selectAll('.' + classes.barGrp)
-					.data(props.data.stateFreq)
-				bars
-					.select('rect')
-					.transition()
-					.duration(1000)
-					.attr('y', d => g.y(d[0]))
-					.attr('height', d => g.height - g.y(d[0]))
+			//Remove expired Chart
+			// d3.selectAll('g .' + classes.barAxis).remove()
 
-				bars
-					.select('text')
-					.transition()
-					.duration(1000)
-					.attr('y', d => g.y(d[0]))
-					.text(d => d3.format('.2s')(d[0]))
-			}
+			//Update Chart
+			bar
+				.select('rect')
+				.transition(g.t())
+				.attr('y', d => g.y(d[0]))
+				.attr('height', d => g.height - g.y(d[0]))
+
+			bar
+				.select('text')
+				.transition(g.t())
+
+				.attr('y', d => g.y(d[0]))
+				.text(d => d3.format('.2s')(d[0]))
 		}
-	}, [props.data])
+	}, [stateFreq])
+
+	const { mouseout, mouseover } = useMemo(() => {
+		function mouseover(d) {
+			let state = preData.filter(el => el.State === d[1])[0]
+			let totalFreq = d3
+				.keys(state.freq)
+				.map(v => ({ type: v, freq: state.freq[v] }))
+			console.log('histogram update Data:', totalFreq)
+			setTotalFreq(totalFreq)
+		}
+		function mouseout(d) {
+			let { totalFreq } = dataProvide()
+			setTotalFreq(totalFreq)
+		}
+		return { mouseout, mouseover }
+	}, [])
 	return (
 		<>
 			<svg
@@ -107,3 +100,5 @@ export default function Histogram(props) {
 		</>
 	)
 }
+
+export default React.memo(Histogram)

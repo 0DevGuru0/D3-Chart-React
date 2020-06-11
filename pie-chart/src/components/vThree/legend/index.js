@@ -4,10 +4,11 @@ import * as d3 from 'd3'
 
 import classes from './styles.module.scss'
 import * as g from './helper'
-export default React.memo(function Legend(props) {
+
+const Legend = ({ totalFreq }) => {
 	useEffect(() => {
-		if (props.data) {
-			let { totalFreq } = props.data
+		if (totalFreq) {
+			console.log('Legend')
 			let rows = d3
 				.select('.' + classes.legend + ' tbody')
 				.selectAll('tr')
@@ -42,22 +43,22 @@ export default React.memo(function Legend(props) {
 				.append('td')
 				.classed(classes.legendPerc, true)
 				.text(d => g.getLegendPrec(d, totalFreq))
-		}
-		return () => {
-			if (props.data) {
-				let { totalFreq } = props.data
 
-				let l = d3
-					.select('.' + classes.legend + ' tbody')
-					.selectAll('tr')
-					.data(totalFreq)
+			//Update Section
+			let rows_up = d3
+				.select('.' + classes.legend + ' tbody')
+				.selectAll('tr')
+				.data(totalFreq)
 
-				l.select('.' + classes.getLegendPrec).text(d =>
-					g.getLegendPrec(d, totalFreq)
-				)
-			}
+			rows_up
+				.select('.' + classes.legendFreq)
+				.text(d => d3.format(',')(d.freq))
+
+			rows_up
+				.select('.' + classes.getLegendPrec)
+				.text(d => g.getLegendPrec(d, totalFreq))
 		}
-	}, [props.data])
+	}, [totalFreq])
 	return (
 		<>
 			<table className={classes.legend}>
@@ -65,4 +66,6 @@ export default React.memo(function Legend(props) {
 			</table>
 		</>
 	)
-})
+}
+
+export default React.memo(Legend)

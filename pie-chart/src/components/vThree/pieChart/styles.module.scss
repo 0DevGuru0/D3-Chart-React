@@ -1,7 +1,17 @@
 .chart {
 	display: block;
 	& > path {
-		stroke: #fff;
+		stroke: #262626;
 		stroke-width: 0.1rem;
+		&:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
 	}
+}
+
+.wrapper {
+	flex: 1 100%;
+	display: flex;
+	justify-content: center;
 }

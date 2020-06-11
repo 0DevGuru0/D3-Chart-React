@@ -1,31 +1,31 @@
-import React, {
-	useState,
-	useEffect,
-	useRef,
-	useCallback,
-} from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import Histogram from './histogram'
 import PieChart from './pieChart'
 import Legend from './legend'
 import dataProvide from './data'
 
 export default function VersionThree() {
-	const [data, setData] = useState()
+	const [stateF, setStateF] = useState()
+	const [totalF, setTotalF] = useState()
+
 	useEffect(() => {
-		let result = dataProvide()
-		setData(result)
+		let { stateFreq, totalFreq } = dataProvide()
+		setStateF(stateFreq)
+		setTotalF(totalFreq)
 	}, [])
-	console.log(data)
+
 	return (
 		<div
 			style={{
 				display: 'flex',
 				justifyContent: 'space-around',
 				alignItems: 'center',
+				flexFlow: 'row wrap',
 			}}>
-			<Histogram data={data} setData={setData} />
-			<PieChart data={data} setData={setData} />
-			<Legend data={data} />
+			<PieChart totalFreq={totalF} setStateFreq={setStateF} />
+			<Histogram stateFreq={stateF} setTotalFreq={setTotalF} />
+			<Legend totalFreq={totalF} />
 		</div>
 	)
 }

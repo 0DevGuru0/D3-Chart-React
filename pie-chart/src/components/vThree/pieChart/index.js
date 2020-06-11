@@ -1,18 +1,17 @@
-import React, { useEffect, useRef } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useMemo } from 'react'
 import * as d3 from 'd3'
 
 import classes from './styles.module.scss'
 import * as g from './helper'
+import preData from '../data/data.json'
+import DataProvide from '../data/index'
 
-export default React.memo(function PieChart({
-	data,
-	setData,
-}) {
+const PieChart = ({ totalFreq, setStateFreq }) => {
 	let pathData = useRef([])
 	useEffect(() => {
-		if (data) {
+		if (totalFreq) {
 			console.log('pieChart')
-			const { totalFreq } = data
 			let pie = d3
 				.select('.' + classes.chart)
 				.selectAll('path')
@@ -24,6 +23,8 @@ export default React.memo(function PieChart({
 				.append('path')
 				.each(d => pathData.current.push(d))
 				.attr('fill', d => g.color(d.data.type))
+				.on('mouseover', mouseover)
+				.on('mouseout', mouseout)
 				.merge(pie)
 				.transition()
 				.duration(1000)
@@ -33,9 +34,25 @@ export default React.memo(function PieChart({
 					return t => g.arc(i(t))
 				})
 		}
-	}, [data])
+	}, [totalFreq])
+
+	const { mouseover, mouseout } = useMemo(() => {
+		function mouseover(d) {
+			const freq = preData.map(el => [
+				el.freq[d.data.type],
+				el.State,
+			])
+			setStateFreq(freq)
+		}
+		function mouseout() {
+			let { stateFreq } = DataProvide()
+			setStateFreq(stateFreq)
+		}
+		return { mouseover, mouseout }
+	}, [])
+
 	return (
-		<>
+		<div className={classes.wrapper}>
 			<svg width={g.width} height={g.height}>
 				<g
 					className={classes.chart}
@@ -43,6 +60,7 @@ export default React.memo(function PieChart({
 						g.height / 2
 					})`}></g>
 			</svg>
-		</>
+		</div>
 	)
-})
+}
+export default React.memo(PieChart)

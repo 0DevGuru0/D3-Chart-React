@@ -12,19 +12,21 @@
 }
 .barAxis {
 	display: block;
+	& > path {
+		display: none;
+	}
 	& > path,
 	& > line {
-		display: none;
-		fill: none;
-		stroke: #000;
 		shape-rendering: crispEdges;
 	}
 	text {
+		fill: #fff;
 		font-size: small;
 		font-family: 'Roboto';
 	}
 }
 .barText {
+	fill: #fff;
 	font-family: 'Roboto';
 	font-size: small;
 }

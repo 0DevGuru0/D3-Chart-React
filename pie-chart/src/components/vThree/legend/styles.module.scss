@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 .legend {
-	display: block;
-	border-spacing: 20px 0.9rem;
+	color: #fff;
+	display: flex;
+	border-spacing: 30px 2rem;
 	&Freq {
-		display: block;
+		visibility: unset;
 	}
 	&Perc {
-		display: block;
+		visibility: unset;
 	}
 	&Type {
-		display: block;
+		visibility: unset;
 	}
 }
 .rows {
