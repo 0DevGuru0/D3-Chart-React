@@ -1,0 +1,47 @@
+.chart {
+	display: block;
+}
+.rAxis {
+	display: block;
+}
+.aAxis {
+	visibility: visible;
+}
+
+.circles {
+	fill: none;
+	stroke: grayscale($color: #000000);
+}
+.yearText {
+	fill: rgb(105, 103, 103);
+	text-anchor: end;
+}
+.spreadLine {
+	stroke: rgb(105, 103, 103);
+}
+.revenueText {
+	fill: rgb(105, 103, 103);
+}
+
+.data {
+	display: block;
+	& > .arcs {
+		display: block;
+		cursor: pointer;
+		transition: all 0.2s;
+		&:hover {
+			opacity: 0.6;
+		}
+	}
+}
+
+.toolTip {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 3px;
+	box-shadow: -3px 3px 15px #939393;
+	color: white;
+	padding: 6px;
+	display: none;
+	transition: all 0.5s;
+}
