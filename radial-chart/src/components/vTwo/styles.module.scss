@@ -1,0 +1,28 @@
+.chart {
+	display: block;
+	linearGradient {
+		&#gradient_chart_area {
+			display: block;
+		}
+		&#gradient_question {
+			display: block;
+		}
+		&#gradient_bars {
+			display: block;
+		}
+	}
+	circle {
+		&.category_circle {
+			display: block;
+		}
+		&.question_circle {
+			display: block;
+		}
+		&.chart_area_circle {
+			display: block;
+		}
+		&.center_circle {
+			display: block;
+		}
+	}
+}

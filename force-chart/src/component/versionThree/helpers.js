@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { rasterizeText } from './plugin/fuzzyText'
 
-let text = 'SALAR'
+let text = 'MOHAMMAD FALLAH'
 
 export let width = window.innerWidth,
 	height = 500,
